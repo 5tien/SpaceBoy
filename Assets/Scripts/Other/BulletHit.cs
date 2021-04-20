@@ -13,6 +13,10 @@ public class BulletHit : MonoBehaviour
     {
         if ((collision.transform.CompareTag("Enemy") && transform.tag == "PlayerBullet") || (collision.transform.CompareTag("Player") && transform.tag == "EnemyBullet"))
         {
+            if (collision.transform.GetComponent<Shooter>())
+            {
+
+            }
             if (collision.transform.GetComponent<EnemyHealth>() != null)
             {
                 collision.transform.GetComponent<EnemyHealth>().ChangeHealth(-transform.localScale.x * 5);
