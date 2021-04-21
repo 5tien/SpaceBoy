@@ -31,7 +31,10 @@ public class PlayerController : MonoBehaviour
         float Hor = Input.GetAxis("Horizontal") * Time.deltaTime;
         float Ver = Input.GetAxis("Vertical") * Time.deltaTime;
 
+        if (pos)
+        {
 
+        }
     
         if (canMove)
         {
