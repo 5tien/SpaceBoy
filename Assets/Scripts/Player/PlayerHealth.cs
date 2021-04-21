@@ -54,14 +54,15 @@ public class PlayerHealth : Health
     {
         if (timeElapsed >= invincibilityDuration)
         {
-            if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("EnemyBullet"))
+            if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("EnemyBullet") || other.gameObject.CompareTag("EnemyLaser"))
             {
                 ChangeHealth(-damagePerHit);
                 timeElapsed = 0;
                 HealthbarRed = true;
 
-                if (other.gameObject.CompareTag("EnemyBullet"))
+                if (other.gameObject.CompareTag("EnemyBullet") && other.tag != "EnemyLaser")
                 {
+                    print(other.tag);
                     Destroy(other.gameObject);
                 }
             }

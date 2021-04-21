@@ -18,7 +18,7 @@ public class NormalBoy : MonoBehaviour
     {
         if (render.isVisible == false)
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
 
         if (shootTime <= 0 && bullet != null)

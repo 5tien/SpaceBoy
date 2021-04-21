@@ -624,6 +624,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1594827573}
   enemy1: {fileID: 3260707032354445857, guid: 72c6c6c7fb77d9241aafb918d2cd09db, type: 3}
+  enemy2: {fileID: 4204409801985044316, guid: c741b2c5cd96d1347924f5ddb9279f03, type: 3}
+  enemy3: {fileID: 0}
   spawnTime: 3
 --- !u!1 &776038478
 GameObject:
@@ -1509,8 +1511,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1594827573}
-  bullet: {fileID: 2345497852628040366, guid: 84fee4c8217184f4ab55fe23d79be25b, type: 3}
-  shootTime: 3
   speed: 2
   followPlayer: 0
-  renderer1: {fileID: 0}

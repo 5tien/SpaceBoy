@@ -5,7 +5,7 @@ using UnityEngine;
 public class LaserBoy : MonoBehaviour
 {
     [SerializeField] private GameObject laser;
-    [SerializeField] private float shootTime = 1;
+    [SerializeField] private float shootTime = 5f;
     [SerializeField] public Renderer render;
 
     void Start()
@@ -18,18 +18,18 @@ public class LaserBoy : MonoBehaviour
     {
         if (render.isVisible == false)
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
 
         if (shootTime <= 0 && laser != null)
         {
-            shootTime = Random.Range(2, 3);
+            shootTime = Random.Range(4, 6);
 
-            GameObject newBullet = Instantiate(laser, transform.position, Quaternion.identity);
+            GameObject newBullet = Instantiate(laser, transform.position + new Vector3(0, -0.1f, -1.4f), Quaternion.identity);
 
-            newBullet.GetComponent<BulletHit>().direction = new Vector3(0, 0, -Time.deltaTime * 3);
-            newBullet.gameObject.tag = "EnemyLaser";
+            newBullet.GetComponent<Laser>().direction = new Vector3(0, 0, -8);
             newBullet.GetComponent<BoxCollider>().isTrigger = true;
+            newBullet.tag = "EnemyLaser";
         }
         else
         {
