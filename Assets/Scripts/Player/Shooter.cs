@@ -9,14 +9,7 @@ public class Shooter : MonoBehaviour
     public GameObject bullet;
     public float delayTimer;
 
-    [Header("Single shot Settings")]
-    [Range(0, 9)] public float chargeDrag = 3;
-    [Range(0, 2)] public float shootDelaySingle = 0.8f;
-    public float singleBNSpeed = 10;
-    public float singleBNSize = 0.15f;
-    private float Charge = 0;
-    
-    [Header("Machine shot Settings")]
+    [Header("1 | Machine shot Settings")]
     [Range(0, 1)] public float machineShotInterval = 0.22f;
     public float machineBNSpeed = 10;
     public float machineBNSize = 0.05f;
@@ -24,8 +17,18 @@ public class Shooter : MonoBehaviour
     [Range(0, 5)] public float maxChargeMachine = 0.8f;
     [Range(0, 1)] public float reloadSpeed;
     [Range(1, 5)] public float ammoDrainSpeed;
+    public float bulDamageM = 25;
     private float cooldownTimer;
     private float currentInterval;
+    
+    [Header("2 | Single shot Settings")]
+    [Range(0, 9)] public float chargeDrag = 3;
+    [Range(0, 2)] public float shootDelaySingle = 0.8f;
+    public float singleBNSpeed = 10;
+    public float singleBNSize = 0.15f;
+    public float bulDamageS = 50;
+    public float bulDamageMultiplier = 3f;
+    public float charge = 0;
 
     private void Start()
     {
@@ -65,27 +68,27 @@ public class Shooter : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Space))
             {
-                if (Charge < 1)
+                if (charge < 1)
                 {
-                    Charge += Time.deltaTime;
+                    charge += Time.deltaTime;
                 }
                 else
                 {
-                    Charge = 1;
+                    charge = 1;
                 }
             }
             else if (Input.GetKeyUp(KeyCode.Mouse0) || Input.GetKeyUp(KeyCode.Space))
             {
                 GameObject newBullet = Instantiate(bullet, transform.position + new Vector3(0, 0, 2), Quaternion.identity);
 
-                if (Charge >= 0)
+                if (charge >= 0)
                 {
-                    newBullet.transform.localScale = new Vector3(singleBNSize + Charge, singleBNSize + Charge, singleBNSize + Charge);
-                    newBullet.GetComponent<BulletHit>().direction = new Vector3(0, 0, singleBNSpeed - Charge * chargeDrag);
+                    newBullet.transform.localScale = new Vector3(singleBNSize + charge, singleBNSize + charge, singleBNSize + charge);
+                    newBullet.GetComponent<BulletHit>().direction = new Vector3(0, 0, singleBNSpeed - charge * chargeDrag);
                 }
 
-                Charge = 0;
-                delayTimer = 0;
+                delayTimer = 0 - charge;
+                charge = 0;
             }
         }
         else if(delayTimer < shootDelaySingle)
@@ -111,6 +114,9 @@ public class Shooter : MonoBehaviour
                     {
                         GameObject newBullet = Instantiate(bullet, transform.position + new Vector3(-0.4f, 0, 1.5f), Quaternion.identity);
                         GameObject newBullet2 = Instantiate(bullet, transform.position + new Vector3(0.4f, 0, 1.5f), Quaternion.identity);
+
+                        newBullet.transform.localScale = new Vector3(machineBNSize, machineBNSize * 2.5f, machineBNSize);
+                        newBullet2.transform.localScale = new Vector3(machineBNSize, machineBNSize * 2.5f, machineBNSize);
 
                         newBullet.GetComponent<BulletHit>().direction = new Vector3(0, 0, machineBNSpeed);
                         newBullet2.GetComponent<BulletHit>().direction = new Vector3(0, 0, machineBNSpeed);

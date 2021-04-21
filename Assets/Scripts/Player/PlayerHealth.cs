@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerHealth : Health
 {
     [SerializeField] private float timeElapsed;
+    private float redTimeElapsed;
     public override void Start()
     {
         base.Start();
@@ -15,6 +16,12 @@ public class PlayerHealth : Health
         if (timeElapsed < invincibilityDuration)
         {
             timeElapsed += Time.deltaTime;
+        }
+        
+        if (redTimeElapsed < 0.15f)
+        {
+            HealthbarRed = true;
+            redTimeElapsed += Time.deltaTime;
         }
         else
         {
@@ -54,15 +61,13 @@ public class PlayerHealth : Health
     {
         if (timeElapsed >= invincibilityDuration)
         {
-            if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("EnemyBullet") || other.gameObject.CompareTag("EnemyLaser"))
+            if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("EnemyBullet"))
             {
                 ChangeHealth(-damagePerHit);
                 timeElapsed = 0;
-                HealthbarRed = true;
-
-                if (other.gameObject.CompareTag("EnemyBullet") && other.tag != "EnemyLaser")
+                redTimeElapsed = 0;
+                if (other.gameObject.CompareTag("EnemyBullet"))
                 {
-                    print(other.tag);
                     Destroy(other.gameObject);
                 }
             }
