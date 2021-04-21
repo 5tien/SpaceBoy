@@ -30,11 +30,6 @@ public class PlayerController : MonoBehaviour
         //Input detection
         float Hor = Input.GetAxis("Horizontal") * Time.deltaTime;
         float Ver = Input.GetAxis("Vertical") * Time.deltaTime;
-
-        if (pos)
-        {
-
-        }
     
         if (canMove)
         {
@@ -83,8 +78,14 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetPos, Mathf.Sin(Time.deltaTime * bankSpeed));
         }
 
-
-
+        if (rb.position.x >= 11.5f)
+        {
+            rb.transform.position = new Vector3(-11f, rb.position.y, rb.position.z);
+        }
+        else if (rb.position.x <= -11.5f)
+        {
+            rb.transform.position = new Vector3(11f, rb.position.y, rb.position.z);
+        }
         /*      Possible dash function (by Sten)
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
