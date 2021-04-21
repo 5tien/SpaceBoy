@@ -5,39 +5,11 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] public GameObject target;
-    [SerializeField] private GameObject bullet;
-    [SerializeField] private float shootTime = 1;
     [SerializeField] private float speed = 2;
     [SerializeField] public bool followPlayer = false;
-    [SerializeField] public Renderer renderer1;
-
-    private void Start()
-    {
-        renderer1 = transform.GetComponent<Renderer>();
-    }
-
+    
     void Update()
     {
-        if (renderer1.isVisible == false)
-        {
-            Destroy(gameObject);
-        }
-
-        if (shootTime <= 0 && bullet != null)
-        {
-            shootTime = Random.Range(2, 3);
-
-            GameObject newBullet = Instantiate(bullet, transform.position, Quaternion.identity);
-
-            newBullet.GetComponent<BulletHit>().direction = new Vector3(0, 0, -5);
-            newBullet.gameObject.tag = "EnemyBullet";
-            newBullet.GetComponent<BoxCollider>().isTrigger = true;
-        }
-        else
-        {
-            shootTime -= Time.deltaTime;
-        }
-
 
         if (target != null)
         {
