@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class BulletHit : MonoBehaviour
 {
-    [SerializeField] public float speed;
+    [SerializeField] public Vector3 direction;
 
     private Renderer render;
     private Rigidbody rigid;
 
     private GunAndScore scoreScript;
     private Shooter shootScript;
+    private CameraShake cameraShake;
+
 
     private float bulletHealthS;
     private float bulletHealthM;
@@ -72,13 +74,27 @@ public class BulletHit : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         shootScript = FindObjectOfType<Shooter>();
         scoreScript = FindObjectOfType<GunAndScore>();
-        
+        cameraShake = FindObjectOfType<CameraShake>();
+
+
         bulletHealthS = shootScript.bulDamageS + (transform.localScale.x - shootScript.singleBNSize) * shootScript.bulDamageMultiplier * shootScript.bulDamageS;
         bulletHealthM = shootScript.bulDamageM;
     }
 
     void Update()
     {
+
+        if (this.gameObject.tag == "PlayerBullet")
+        {
+            if (shootScript.CurrentGun == 2)
+            {
+                if (transform.localPosition.z < 20)
+                {
+                    StartCoroutine(cameraShake.Shake(0.15f, Mathf.Sin((transform.localScale.x - shootScript.singleBNSize) / 20)));
+                }
+            }
+        }
+
         //out of bounds the bullet will despawn
         if (render.isVisible == false)
         {
@@ -91,6 +107,6 @@ public class BulletHit : MonoBehaviour
             Destroy(gameObject);
         }
 
-        rigid.velocity = transform.forward * speed;
+        rigid.velocity = direction;
     }
 }

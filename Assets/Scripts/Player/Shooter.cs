@@ -41,6 +41,8 @@ public class Shooter : MonoBehaviour
         //Gun switcher.
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
+
+
             if (CurrentGun < 2)     //This is the amount of guns it will switch between.
             {
                 CurrentGun = CurrentGun + 1;
@@ -84,7 +86,7 @@ public class Shooter : MonoBehaviour
                 if (charge >= 0)
                 {
                     newBullet.transform.localScale = new Vector3(singleBNSize + charge, singleBNSize + charge, singleBNSize + charge);
-                    newBullet.GetComponent<BulletHit>().speed = singleBNSpeed - charge * chargeDrag;
+                    newBullet.GetComponent<BulletHit>().direction = new Vector3(0, 0, singleBNSpeed - charge * chargeDrag);
                 }
 
                 delayTimer = 0 - charge;
@@ -118,8 +120,8 @@ public class Shooter : MonoBehaviour
                         newBullet.transform.localScale = new Vector3(machineBNSize, machineBNSize * 2.5f, machineBNSize);
                         newBullet2.transform.localScale = new Vector3(machineBNSize, machineBNSize * 2.5f, machineBNSize);
 
-                        newBullet.GetComponent<BulletHit>().speed = machineBNSpeed;
-                        newBullet2.GetComponent<BulletHit>().speed = machineBNSpeed;
+                        newBullet.GetComponent<BulletHit>().direction = new Vector3(0, 0, machineBNSpeed);
+                        newBullet2.GetComponent<BulletHit>().direction = new Vector3(0, 0, machineBNSpeed);
 
 
                         currentInterval = 0;
