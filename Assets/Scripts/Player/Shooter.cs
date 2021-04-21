@@ -84,7 +84,7 @@ public class Shooter : MonoBehaviour
                 if (charge >= 0)
                 {
                     newBullet.transform.localScale = new Vector3(singleBNSize + charge, singleBNSize + charge, singleBNSize + charge);
-                    newBullet.GetComponent<BulletHit>().direction = new Vector3(0, 0, singleBNSpeed - charge * chargeDrag);
+                    newBullet.GetComponent<BulletHit>().speed = singleBNSpeed - charge * chargeDrag;
                 }
 
                 delayTimer = 0 - charge;
@@ -118,8 +118,8 @@ public class Shooter : MonoBehaviour
                         newBullet.transform.localScale = new Vector3(machineBNSize, machineBNSize * 2.5f, machineBNSize);
                         newBullet2.transform.localScale = new Vector3(machineBNSize, machineBNSize * 2.5f, machineBNSize);
 
-                        newBullet.GetComponent<BulletHit>().direction = new Vector3(0, 0, machineBNSpeed);
-                        newBullet2.GetComponent<BulletHit>().direction = new Vector3(0, 0, machineBNSpeed);
+                        newBullet.GetComponent<BulletHit>().speed = machineBNSpeed;
+                        newBullet2.GetComponent<BulletHit>().speed = machineBNSpeed;
 
 
                         currentInterval = 0;

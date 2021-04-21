@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletHit : MonoBehaviour
 {
-    [SerializeField] public Vector3 direction;
+    [SerializeField] public float speed;
 
     private Renderer render;
     private Rigidbody rigid;
@@ -72,7 +72,7 @@ public class BulletHit : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         shootScript = FindObjectOfType<Shooter>();
         scoreScript = FindObjectOfType<GunAndScore>();
-
+        
         bulletHealthS = shootScript.bulDamageS + (transform.localScale.x - shootScript.singleBNSize) * shootScript.bulDamageMultiplier * shootScript.bulDamageS;
         bulletHealthM = shootScript.bulDamageM;
     }
@@ -91,6 +91,6 @@ public class BulletHit : MonoBehaviour
             Destroy(gameObject);
         }
 
-        rigid.velocity = direction;
+        rigid.velocity = transform.forward * speed;
     }
 }

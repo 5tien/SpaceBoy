@@ -6,6 +6,7 @@ public class NormalBoy : MonoBehaviour
 {
     [SerializeField] private GameObject bullet;
     [SerializeField] private float shootTime = 1;
+    [SerializeField] private bool destroyOnInVisible = true;
     [SerializeField] public Renderer render;
 
     void Start()
@@ -16,7 +17,7 @@ public class NormalBoy : MonoBehaviour
 
     void Update()
     {
-        if (render.isVisible == false)
+        if (render.isVisible == false && destroyOnInVisible == true)
         {
             Destroy(gameObject);
         }
@@ -27,7 +28,7 @@ public class NormalBoy : MonoBehaviour
 
             GameObject newBullet = Instantiate(bullet, transform.position, Quaternion.identity);
 
-            newBullet.GetComponent<BulletHit>().direction = new Vector3(0, 0, -5);
+            newBullet.GetComponent<BulletHit>().speed = -5;
             newBullet.gameObject.tag = "EnemyBullet";
             newBullet.GetComponent<BoxCollider>().isTrigger = true;
         }
